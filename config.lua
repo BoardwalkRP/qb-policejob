@@ -2,7 +2,7 @@ Config = {}
 Config.UseTarget = GetConvar('UseTarget', 'false') == 'true'
 Config.MaxSpikes = 5
 Config.HandCuffItem = 'handcuffs'
-Config.LicenseRank = 2
+Config.LicenseRank = 0
 Config.ArmoryWhitelist = {}
 Config.WhitelistedVehicles = {}
 Config.PoliceHelicopter = 'POLMAV'
@@ -27,43 +27,52 @@ Config.Objects = {
 
 Config.Locations = {
     ['duty'] = {
-        [1] = vector3(440.085, -974.924, 30.689),
-        [2] = vector3(-449.811, 6012.909, 31.815),
+        [1] = vector3(376.52, -1605.34, 30.05), -- DAVIS
+        [2] = vector3(-446.72, 6012.83, 32.29), -- PALETO
+        [3] = vector3(837.24, -1289.77, 28.24), -- CID
+        [4] = vector3(1854.25, 3687.98, 34.27), -- BCSO
     },
     ['vehicle'] = {
-        [1] = vector4(448.159, -1017.41, 28.562, 90.654),
-        [2] = vector4(471.13, -1024.05, 28.17, 274.5),
-        [3] = vector4(-455.39, 6002.02, 31.34, 87.93),
     },
     ['stash'] = {
-        [1] = vector3(453.075, -980.124, 30.889),
+        [1] = vector3(362.39, -1595.79, 25.45),
+        [2] = vector3(-436.29, 6010.23, 37.0),
+        [3] = vector3(836.41, -1286.7, 28.24),
+        [4] = vector3(1857.75, 3699.62, 30.27), -- BCSO
     },
     ['impound'] = {
-        [1] = vector3(436.68, -1007.42, 27.32),
-        [2] = vector3(-436.14, 5982.63, 31.34),
+        [1] = vector3(401.89, -1630.86, 29.29),
+        [2] = vector3(-457.92, 6044.07, 31.34),
     },
     ['helicopter'] = {
-        [1] = vector4(449.168, -981.325, 43.691, 87.234),
-        [2] = vector4(-475.43, 5988.353, 31.716, 31.34),
     },
     ['armory'] = {
-        [1] = vector3(462.23, -981.12, 30.68),
+        [1] = vector3(365.22, -1598.78, 25.45),
+        [2] = vector3(-444.26, 6013.79, 37.01),
+        [3] = vector3(1858.83, 3690.85, 34.27), -- BCSO
     },
     ['trash'] = {
-        [1] = vector3(439.0907, -976.746, 30.776),
+        [1] = vector3(371.16, -1596.0, 25.45), --DAVIES
+        [2] = vector3(-435.52, 6004.24, 37.0), --PALETO
+        [3] = vector3(855.9, -1298.98, 28.25), --CID
+        [4] = vector3(1855.48, 3694.26, 30.27), --BCSO
     },
     ['fingerprint'] = {
-        [1] = vector3(460.9667, -989.180, 24.92),
+        [1] = vector3(380.22, -1602.65, 25.45),
+        [2] = vector3(-452.38, 5997.84, 27.58),
+        [3] = vector3(1858.47, 3686.94, 30.27), -- BCSO
     },
     ['evidence'] = {
-        [1] = vector3(442.1722, -996.067, 30.689),
-        [2] = vector3(451.7031, -973.232, 30.689),
-        [3] = vector3(455.1456, -985.462, 30.689),
+        [1] = vector3(381.65, -1607.28, 30.2),
+        [2] = vector3(-452.96, 5999.42, 37.01),
+        [3] = vector3(847.39, -1313.03, 28.24),
+        [4] = vector3(1848.51, 3695.75, 30.27), -- BCSO
     },
     ['stations'] = {
-        [1] = { label = 'Police Station', coords = vector4(428.23, -984.28, 29.76, 3.5) },
-        [2] = { label = 'Prison', coords = vector4(1845.903, 2585.873, 45.672, 272.249) },
-        [3] = { label = 'Police Station Paleto', coords = vector4(-451.55, 6014.25, 31.716, 223.81) },
+        [1] = {label = "Davis Police Station", coords = vector4(382.66, -1591.21, 29.28, 140.29)},
+        [2] = {label = "Paleto Sheriff Station", coords = vector4(-437.41, 6014.07, 32.27, 140.46)},
+        [3] = {label = "Criminal Investigations Division ", coords = vector4(830.9, -1290.29, 28.24, 259.4)},
+        [4] = {label = "Blaine County Sheriff's Office", coords = vector4(1855.67, 3682.29, 34.27, 207.16)},
     },
 }
 
@@ -144,69 +153,57 @@ Config.AuthorizedVehicles = {
 Config.Items = {
     -- Grade 0 and higher
     [0] = {
+        { name = 'weapon_nightstick',  price = 0, amount = 1 },
+        { name = 'weapon_flashlight',  price = 0, amount = 1 },
+        { name = 'pistol_ammo',        price = 0, amount = 5 },
+        { name = 'handcuffs',          price = 0, amount = 2 },
+        { name = 'empty_evidence_bag', price = 0, amount = 50 },
+        { name = 'police_stormram',    price = 0, amount = 50 },
+        { name = 'radio',              price = 0, amount = 50 },
+        { name = 'cleaningkit',        price = 0, amount = 50 },
+        { name = 'cone',               price = 0, amount = 1 },
+        { name = 'barricade',          price = 0, amount = 1 },
+        { name = 'roadblock',          price = 0, amount = 1 },
+        { name = 'stoppedvehicles',    price = 0, amount = 1 },
+        { name = 'light',              price = 0, amount = 1 },
+        { name = 'spikestrip',         price = 0, amount = 1 },
+        { name = 'firstaid',           price = 0, amount = 1 },
+        { name = 'cwnotepad',          price = 0, amount = 1 },
+    },
+    -- Grade 2 and higher
+    [2] = {
+        { name = 'shotgun_ammo',       price = 0, amount = 5 },
+    },
+    -- Grade 3 and higher
+    [3] = {
         {
-            name = 'weapon_pistol',
+            name = 'weapon_doubleaction',
             price = 0,
-            amount = 50,
+            amount = 1,
             info = {
-                attachments = {
-                    { component = 'COMPONENT_AT_PI_FLSH', label = 'Flashlight' },
-                }
+                attachments = {}
             }
         },
         {
-            name = 'weapon_stungun',
+            name = 'weapon_pistol',
             price = 0,
-            amount = 50,
+            amount = 1,
             info = {
-                attachments = {
-                    { component = 'COMPONENT_AT_AR_FLSH', label = 'Flashlight' },
-                }
+                attachments = {}
             }
         },
         {
             name = 'weapon_pumpshotgun',
             price = 0,
-            amount = 50,
+            amount = 1,
             info = {
-                attachments = {
-                    { component = 'COMPONENT_AT_AR_FLSH', label = 'Flashlight' },
-                }
+                attachments = {}
             }
         },
-        {
-            name = 'weapon_smg',
-            price = 0,
-            amount = 50,
-            info = {
-                attachments = {
-                    { component = 'COMPONENT_AT_SCOPE_MACRO_02', label = '1x Scope' },
-                    { component = 'COMPONENT_AT_AR_FLSH',        label = 'Flashlight' },
-                }
-            }
-        },
-        {
-            name = 'weapon_carbinerifle',
-            price = 0,
-            amount = 50,
-            info = {
-                attachments = {
-                    { component = 'COMPONENT_AT_AR_FLSH',      label = 'Flashlight' },
-                    { component = 'COMPONENT_AT_SCOPE_MEDIUM', label = '3x Scope' },
-                }
-            }
-        },
-        { name = 'weapon_nightstick',  price = 0, amount = 50 },
-        { name = 'weapon_flashlight',  price = 0, amount = 50 },
-        { name = 'pistol_ammo',        price = 0, amount = 50 },
-        { name = 'smg_ammo',           price = 0, amount = 50 },
-        { name = 'shotgun_ammo',       price = 0, amount = 50 },
-        { name = 'rifle_ammo',         price = 0, amount = 50 },
-        { name = 'handcuffs',          price = 0, amount = 50 },
-        { name = 'empty_evidence_bag', price = 0, amount = 50 },
-        { name = 'police_stormram',    price = 0, amount = 50 },
+    },
+    -- Grade 9 and higher
+    [9] = {
         { name = 'armor',              price = 0, amount = 50 },
-        { name = 'radio',              price = 0, amount = 50 },
         { name = 'heavyarmor',         price = 0, amount = 50 },
     }
 }

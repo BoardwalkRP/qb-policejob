@@ -67,21 +67,29 @@ end)
 
 RegisterNetEvent('police:client:PutInVehicle', function()
     local ped = PlayerPedId()
-    if isHandcuffed or isEscorted then
-        local vehicle = QBCore.Functions.GetClosestVehicle()
-        if DoesEntityExist(vehicle) then
-            for i = GetVehicleMaxNumberOfPassengers(vehicle), 0, -1 do
-                if IsVehicleSeatFree(vehicle, i) then
-                    isEscorted = false
-                    TriggerEvent('hospital:client:isEscorted', isEscorted)
-                    ClearPedTasks(ped)
-                    DetachEntity(ped, true, false)
+    local coords = GetEntityCoords(ped)
+    local vehicle = QBCore.Functions.GetClosestVehicle()
 
-                    Wait(100)
-                    SetPedIntoVehicle(ped, vehicle, i)
-                    return
-                end
+    if DoesEntityExist(vehicle) then
+        local nearestDist, seat = 100, nil
+
+        for i = 0, GetVehicleModelNumberOfSeats(GetEntityModel(vehicle)) - 1 do
+            local dist = #(coords - GetEntryPositionOfDoor(vehicle, i + 1))
+
+            if IsVehicleSeatFree(vehicle, i) and dist < nearestDist then
+                nearestDist = dist
+                seat = i
             end
+        end
+
+        if seat then
+            isEscorted = false
+            TriggerEvent('hospital:client:isEscorted', isEscorted)
+            ClearPedTasks(ped)
+            DetachEntity(ped, true, false)
+
+            Wait(100)
+            SetPedIntoVehicle(ped, vehicle, seat)
         end
     end
 end)
@@ -208,13 +216,24 @@ end)
 
 RegisterNetEvent('police:client:PutPlayerInVehicle', function()
     local player, distance = QBCore.Functions.GetClosestPlayer()
-    if player ~= -1 and distance < 2.5 then
-        local playerId = GetPlayerServerId(player)
-        if not isHandcuffed and not isEscorted then
-            TriggerServerEvent('police:server:PutPlayerInVehicle', playerId)
+    local vehicle = QBCore.Functions.GetClosestVehicle()
+
+    if player ~= -1 and distance < 2.5 and vehicle then
+        local vehDist = #(GetEntityCoords(vehicle) - GetEntityCoords(PlayerPedId()))
+        local ped = GetPlayerPed(player)
+
+        if IsPedInAnyVehicle(ped, false) == 1 then
+            QBCore.Functions.Notify("That person is already in a vehicle", "error")
+        elseif vehDist < 2.5 then
+            local playerId = GetPlayerServerId(player)
+            if not isHandcuffed and not isEscorted then
+                TriggerServerEvent("police:server:PutPlayerInVehicle", playerId)
+            end
+        else
+            QBCore.Functions.Notify("You are not close to a vehicle", "error")
         end
     else
-        QBCore.Functions.Notify(Lang:t('error.none_nearby'), 'error')
+        QBCore.Functions.Notify(Lang:t("error.none_nearby"), "error")
     end
 end)
 

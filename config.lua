@@ -69,10 +69,6 @@ Config.Locations = {
         [4] = vector3(1848.51, 3695.75, 30.27), -- BCSO
     },
     ['stations'] = {
-        [1] = {label = "Davis Police Station", coords = vector4(382.66, -1591.21, 29.28, 140.29)},
-        [2] = {label = "Paleto Sheriff Station", coords = vector4(-437.41, 6014.07, 32.27, 140.46)},
-        [3] = {label = "Criminal Investigations Division ", coords = vector4(830.9, -1290.29, 28.24, 259.4)},
-        [4] = {label = "Blaine County Sheriff's Office", coords = vector4(1855.67, 3682.29, 34.27, 207.16)},
     },
 }
 

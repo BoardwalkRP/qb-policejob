@@ -107,6 +107,16 @@ local function DnaHash(s)
     return h
 end
 
+local function Impound(source, fine)
+    local Player = QBCore.Functions.GetPlayer(source)
+    fine = fine and tonumber(fine) or 0
+    if Player.PlayerData.job.type == 'leo' and Player.PlayerData.job.onduty then
+        TriggerClientEvent('police:client:ImpoundVehicle', source, false, fine)
+    else
+        TriggerClientEvent('QBCore:Notify', source, Lang:t('error.on_duty_police_only'), 'error')
+    end
+end
+
 -- Commands
 QBCore.Commands.Add('spikestrip', Lang:t('commands.place_spike'), {}, false, function(source)
     local src = source
@@ -334,23 +344,11 @@ QBCore.Commands.Add('plateinfo', Lang:t('commands.plateinfo'), { { name = 'plate
 end)
 
 QBCore.Commands.Add('depot', Lang:t('commands.depot'), { { name = 'price', help = Lang:t('info.impound_price') } }, false, function(source, args)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if Player.PlayerData.job.type == 'leo' and Player.PlayerData.job.onduty then
-        TriggerClientEvent('police:client:ImpoundVehicle', src, false, tonumber(args[1]))
-    else
-        TriggerClientEvent('QBCore:Notify', src, Lang:t('error.on_duty_police_only'), 'error')
-    end
+    Impound(source, args[1])
 end)
 
-QBCore.Commands.Add('impound', Lang:t('commands.impound'), {}, false, function(source)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if Player.PlayerData.job.type == 'leo' and Player.PlayerData.job.onduty then
-        TriggerClientEvent('police:client:ImpoundVehicle', src, true)
-    else
-        TriggerClientEvent('QBCore:Notify', src, Lang:t('error.on_duty_police_only'), 'error')
-    end
+QBCore.Commands.Add('impound', Lang:t('commands.depot'), { { name = 'price', help = Lang:t('info.impound_price') } }, false, function(source, args)
+    Impound(source, args[1])
 end)
 
 QBCore.Commands.Add('paytow', Lang:t('commands.paytow'), { { name = 'id', help = Lang:t('info.player_id') } }, true, function(source, args)

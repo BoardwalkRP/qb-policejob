@@ -780,6 +780,8 @@ RegisterNetEvent('police:server:JailPlayer', function(playerId, time)
         ['hasRecord'] = true,
         ['date'] = currentDate
     })
+    exports['futte-newspaper']:CreateJailStory(OtherPlayer.PlayerData.charinfo.firstname.." "..OtherPlayer.PlayerData.charinfo.lastname,
+        time)
     TriggerClientEvent('police:client:SendToJail', OtherPlayer.PlayerData.source, time)
     TriggerClientEvent('QBCore:Notify', src, Lang:t('info.sent_jail_for', { time = time }))
 end)

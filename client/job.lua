@@ -510,6 +510,40 @@ RegisterNetEvent('qb-police:client:openTrash', function()
     TriggerEvent('inventory:client:SetCurrentStash', 'policetrash')
 end)
 
+RegisterNetEvent('police:client:patrolOrder', function()
+    local PlayerData = QBCore.Functions.GetPlayerData()
+    if PlayerData.job.type ~= 'leo' or PlayerData.job.grade.level < 3 then
+        QBCore.Functions.Notify("You don't have permission", 'error')
+        return
+    end
+    local menu = {
+        {
+            isHeader = true,
+            header = 'Issue Patrol Order',
+            text = 'Select known gang to patrol',
+            icon = 'fas fa-building-shield',
+        }
+    }
+
+    for name, gang in pairs(QBCore.Shared.Gangs) do
+        if name == 'none' then goto next end
+        menu[#menu+1] = {
+            header = gang.label,
+            icon = 'fas fa-binoculars',
+            params = {
+                event = 'police:server:patrolOrder',
+                isServer = true,
+                args = {
+                    gang = name,
+                }
+            }
+        }
+        ::next::
+    end
+
+    exports['qb-menu']:openMenu(menu)
+end)
+
 --##### Threads #####--
 
 local dutylisten = false

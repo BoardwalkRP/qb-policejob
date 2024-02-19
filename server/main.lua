@@ -1087,6 +1087,28 @@ RegisterNetEvent('police:server:SyncSpikes', function(table)
     TriggerClientEvent('police:client:SyncSpikes', -1, table)
 end)
 
+RegisterNetEvent('police:server:searchWarrant', function()
+    local src = source
+    local QPlayer = QBCore.Functions.GetPlayer(src)
+    if QPlayer.PlayerData.job.type ~= 'leo' or QPlayer.PlayerData.job.grade.level < 3 then
+        TriggerClientEvent('QBCore:Notify', src, "You don't have permission", 'error')
+        return
+    end
+    QPlayer.Functions.AddItem('warrant_search', 1)
+    TriggerClientEvent('QBCore:Notify', src, "Search warrant issued.", 'success')
+end)
+
+RegisterNetEvent('police:server:patrolOrder', function(args)
+    local src = source
+    local QPlayer = QBCore.Functions.GetPlayer(src)
+    if QPlayer.PlayerData.job.type ~= 'leo' or QPlayer.PlayerData.job.grade.level < 3 then
+        TriggerClientEvent('QBCore:Notify', src, "You don't have permission", 'error')
+        return
+    end
+    QPlayer.Functions.AddItem('police_patrolform', 1, nil, { gang = args.gang })
+    TriggerClientEvent('QBCore:Notify', src, "Patrol order issued.", 'success')
+end)
+
 -- Threads
 CreateThread(function()
     while true do

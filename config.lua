@@ -187,30 +187,10 @@ Config.Items = {
     },
     -- Grade 3 and higher
     [3] = {
-        {
-            name = 'weapon_doubleaction',
-            price = 0,
-            amount = 1,
-            info = {
-                attachments = {}
-            }
-        },
-        {
-            name = 'weapon_pistol',
-            price = 0,
-            amount = 1,
-            info = {
-                attachments = {}
-            }
-        },
-        {
-            name = 'weapon_pumpshotgun',
-            price = 0,
-            amount = 1,
-            info = {
-                attachments = {}
-            }
-        },
+        { name = 'lspdbadge', price = 0, amount = 1 },
+        { name = 'weapon_doubleaction', price = 0, amount = 1, info = { attachments = {} } },
+        { name = 'weapon_pistol', price = 0, amount = 1, info = { attachments = {} } },
+        { name = 'weapon_pumpshotgun', price = 0, amount = 1, info = { attachments = {} } },
     },
     -- Grade 9 and higher
     [9] = {

@@ -159,6 +159,7 @@ local Translations = {
         callsign = 'Give Yourself A Callsign',
         clear_casign = 'Clear Area of Casings (Police Only)',
         jail_player = 'Jail Player (Police Only)',
+        jail_player_solitary = 'Jail Player into solitary (Police Only)',
         unjail_player = 'Unjail Player (Police Only)',
         clearblood = 'Clear The Area of Blood (Police Only)',
         seizecash = 'Seize Cash (Police Only)',

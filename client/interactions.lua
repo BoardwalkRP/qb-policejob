@@ -162,7 +162,7 @@ RegisterNetEvent('police:client:RobPlayer', function()
     end
 end)
 
-RegisterNetEvent('police:client:JailPlayer', function()
+RegisterNetEvent('police:client:JailPlayer', function(solitary)
     local player, distance = QBCore.Functions.GetClosestPlayer()
     if player ~= -1 and distance < 2.5 then
         local playerId = GetPlayerServerId(player)
@@ -178,8 +178,8 @@ RegisterNetEvent('police:client:JailPlayer', function()
                 }
             }
         })
-        if tonumber(dialog['jailtime']) > 0 then
-            TriggerServerEvent('police:server:JailPlayer', playerId, tonumber(dialog['jailtime']))
+        if dialog and tonumber(dialog['jailtime']) > 0 then
+            TriggerServerEvent('police:server:JailPlayer', playerId, tonumber(dialog['jailtime']), solitary)
         else
             QBCore.Functions.Notify(Lang:t('error.time_higher'), 'error')
         end

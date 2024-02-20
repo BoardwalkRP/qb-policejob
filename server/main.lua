@@ -232,7 +232,17 @@ QBCore.Commands.Add('jail', Lang:t('commands.jail_player'), {}, false, function(
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.PlayerData.job.type == 'leo' and Player.PlayerData.job.onduty then
-        TriggerClientEvent('police:client:JailPlayer', src)
+        TriggerClientEvent('police:client:JailPlayer', src, false)
+    else
+        TriggerClientEvent('QBCore:Notify', src, Lang:t('error.on_duty_police_only'), 'error')
+    end
+end)
+
+QBCore.Commands.Add('jailsolitary', Lang:t('commands.jail_player_solitary'), {}, false, function(source)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.PlayerData.job.type == 'leo' and Player.PlayerData.job.onduty then
+        TriggerClientEvent('police:client:JailPlayer', src, true)
     else
         TriggerClientEvent('QBCore:Notify', src, Lang:t('error.on_duty_police_only'), 'error')
     end
@@ -758,7 +768,7 @@ RegisterNetEvent('police:server:BillPlayer', function(playerId, price)
     TriggerClientEvent('QBCore:Notify', OtherPlayer.PlayerData.source, Lang:t('info.fine_received', { fine = price }))
 end)
 
-RegisterNetEvent('police:server:JailPlayer', function(playerId, time)
+RegisterNetEvent('police:server:JailPlayer', function(playerId, time, solitary)
     local src = source
     local playerPed = GetPlayerPed(src)
     local targetPed = GetPlayerPed(playerId)
@@ -782,7 +792,7 @@ RegisterNetEvent('police:server:JailPlayer', function(playerId, time)
     })
     exports['futte-newspaper']:CreateJailStory(OtherPlayer.PlayerData.charinfo.firstname.." "..OtherPlayer.PlayerData.charinfo.lastname,
         time)
-    TriggerClientEvent('police:client:SendToJail', OtherPlayer.PlayerData.source, time)
+    TriggerClientEvent('police:client:SendToJail', OtherPlayer.PlayerData.source, time, solitary)
     TriggerClientEvent('QBCore:Notify', src, Lang:t('info.sent_jail_for', { time = time }))
 end)
 

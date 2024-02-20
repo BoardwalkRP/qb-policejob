@@ -207,13 +207,13 @@ RegisterNetEvent('police:client:policeAlert', function(coords, text)
     end
 end)
 
-RegisterNetEvent('police:client:SendToJail', function(time)
+RegisterNetEvent('police:client:SendToJail', function(time, solitary)
     TriggerServerEvent('police:server:SetHandcuffStatus', false)
     isHandcuffed = false
     isEscorted = false
     ClearPedTasks(PlayerPedId())
     DetachEntity(PlayerPedId(), true, false)
-    TriggerEvent('prison:client:Enter', time)
+    TriggerEvent('prison:client:Enter', time, solitary)
 end)
 
 RegisterNetEvent('police:client:SendPoliceEmergencyAlert', function()

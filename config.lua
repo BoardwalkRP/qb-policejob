@@ -180,6 +180,7 @@ Config.Items = {
         { name = 'spikestrip',         price = 0, amount = 1 },
         { name = 'firstaid',           price = 0, amount = 1 },
         { name = 'cwnotepad',          price = 0, amount = 1 },
+        { name = 'camera',             price = 0, amount = 1 },
     },
     -- Grade 2 and higher
     [2] = {
